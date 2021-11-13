@@ -53,6 +53,7 @@ jobs:
         uses: snyk/actions/node@master
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+          image: alkaffahamed/amongus-day3:test
   build:
     runs-on: ubuntu-latest
     steps:
