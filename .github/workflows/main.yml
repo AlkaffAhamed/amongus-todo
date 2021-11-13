@@ -25,6 +25,7 @@ jobs:
         run: npm test
   docker:
     runs-on: ubuntu-latest
+    needs: [run-tests]
     steps:
       -
         name: Set up QEMU
@@ -47,6 +48,7 @@ jobs:
           tags: alkaffahamed/amongus-day3:test
   scan:
     runs-on: ubuntu-latest
+    needs: [docker]
     steps:
       - uses: actions/checkout@v2
       - name: Run Snyk to check for vulnerabilities
@@ -56,6 +58,7 @@ jobs:
           image: alkaffahamed/amongus-day3:test
   build:
     runs-on: ubuntu-latest
+    needs: [scan]
     steps:
       - uses: actions/checkout@v2
       - uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
