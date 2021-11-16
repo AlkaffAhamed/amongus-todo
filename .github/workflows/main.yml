@@ -2,7 +2,7 @@ name: ci
 on: 
   push:
     branches:
-      - "Day3"
+      - "Capstone"
 
 jobs:
   run-tests:
@@ -45,8 +45,8 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          tags: alkaffahamed/amongus-day3:test
-  scan:
+          tags: alkaffahamed/amongus-capstone:test
+  snyk-scan:
     runs-on: ubuntu-latest
     needs: [docker]
     steps:
@@ -56,16 +56,16 @@ jobs:
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
-          image: alkaffahamed/amongus-day3:test
+          image: alkaffahamed/amongus-capstone:test
           args: --severity-threshold=high
-  build:
-    runs-on: ubuntu-latest
-    needs: [docker]
-    steps:
-      - uses: actions/checkout@v2
-      - uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
-        with:
-          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-          heroku_app_name: "alkaff-powerx-amongus-d3" #Must be unique in Heroku
-          heroku_email: ${{secrets.HEROKU_EMAIL}}
-          usedocker: true
+  # heroku:
+  #   runs-on: ubuntu-latest
+  #   needs: [docker]
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #     - uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
+  #       with:
+  #         heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+  #         heroku_app_name: "alkaff-powerx-amongus-cs" #Must be unique in Heroku
+  #         heroku_email: ${{secrets.HEROKU_EMAIL}}
+  #         usedocker: true
